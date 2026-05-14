@@ -10,8 +10,8 @@ if ($aksi === 'tambah') {
     $waktu       = $_POST['waktu']        ?: date('H:i:s');
     $id_kategori = (int)($_POST['id_kategori'] ?? 0);
     $nominal     = (int)str_replace('.', '', $_POST['nominal_raw'] ?? '0');
-    $keterangan  = trim($_POST['keterangan'] ?? '');
-    $catatan     = trim($_POST['catatan']    ?? '');
+    $keterangan  = '';
+    $catatan     = '';
     $id_produk_raw = trim($_POST['id_produk'] ?? '');
     $id_produk   = ($id_produk_raw !== '' && (int)$id_produk_raw > 0) ? (int)$id_produk_raw : null;
 
@@ -23,8 +23,6 @@ if ($aksi === 'tambah') {
         header('Location: form_transaksi.php?error=' . urlencode('Pilih kategori transaksi!')) and exit;
     if ($nominal <= 0)
         header('Location: form_transaksi.php?error=' . urlencode('Nominal harus lebih dari Rp 0!')) and exit;
-    if (!$keterangan)
-        header('Location: form_transaksi.php?error=' . urlencode('Keterangan tidak boleh kosong!')) and exit;
 
     $stmt = $pdo->prepare("
         INSERT INTO tb_transaksi (id_user, id_kategori, id_produk, jenis, tanggal, waktu, nominal, keterangan, catatan)
@@ -42,12 +40,12 @@ if ($aksi === 'tambah') {
     $waktu         = $_POST['waktu']         ?: date('H:i:s');
     $id_kategori   = (int)($_POST['id_kategori'] ?? 0);
     $nominal       = (int)str_replace('.', '', $_POST['nominal_raw'] ?? '0');
-    $keterangan    = trim($_POST['keterangan'] ?? '');
-    $catatan       = trim($_POST['catatan']    ?? '');
+    $keterangan    = '';
+    $catatan       = '';
     $id_produk_raw = trim($_POST['id_produk']  ?? '');
     $id_produk     = ($id_produk_raw !== '' && (int)$id_produk_raw > 0) ? (int)$id_produk_raw : null;
 
-    if (!$id_transaksi || !in_array($jenis, ['masuk', 'keluar']) || !$tanggal || !$id_kategori || $nominal <= 0 || !$keterangan) {
+    if (!$id_transaksi || !in_array($jenis, ['masuk', 'keluar']) || !$tanggal || !$id_kategori || $nominal <= 0) {
         header('Location: form_transaksi.php?id=' . $id_transaksi . '&error=' . urlencode('Semua field wajib diisi dengan benar!'));
         exit;
     }

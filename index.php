@@ -545,7 +545,7 @@
                     <i class="fas fa-exchange-alt"></i>
                 </div>
                 <div class="feat-title">Catat Transaksi</div>
-                <p class="feat-desc">Rekam pemasukan dan pengeluaran secara cepat. Lengkap dengan kategori, keterangan, tanggal, dan waktu transaksi.</p>
+                <p class="feat-desc">Rekam pemasukan dan pengeluaran secara cepat. Lengkap dengan kategori, produk, tanggal, dan waktu transaksi.</p>
             </div>
             <!-- Card 2 -->
             <div class="feat-card">

@@ -737,30 +737,7 @@ $jenisInit = $editMode ? $tx['jenis'] : $jenisDefault;
                             </select>
                         </div>
                     </div>
-                    <!-- Keterangan -->
-                    <div class="col-12">
-                        <div class="field-group">
-                            <label class="field-label">
-                                <i class="fas fa-align-left" style="color:#6b7280;"></i>
-                                Keterangan / Deskripsi <span class="req">*</span>
-                            </label>
-                            <input type="text" class="field-input" name="keterangan" id="keterangan"
-                                value="<?= $editMode ? htmlspecialchars($tx['keterangan']) : '' ?>"
-                                placeholder="Contoh: Penjualan sepatu olahraga Nike" oninput="updatePreview()" required>
-                        </div>
-                    </div>
-                    <!-- Catatan -->
-                    <div class="col-12">
-                        <div class="field-group" style="margin-bottom:0;">
-                            <label class="field-label">
-                                <i class="fas fa-sticky-note" style="color:#6b7280;"></i>
-                                Catatan Tambahan (Opsional)
-                            </label>
-                            <textarea class="field-textarea" name="catatan" id="catatan"
-                                placeholder="Catatan internal...">
-<?= $editMode ? htmlspecialchars($tx['catatan'] ?? '') : '' ?></textarea>
-                        </div>
-                    </div>
+
                 </div>
 
                 <div class="divider"></div>

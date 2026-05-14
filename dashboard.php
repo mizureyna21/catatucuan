@@ -685,7 +685,7 @@ $alertStatus = $_GET['status'] ?? '';
                             <thead>
                                 <tr>
                                     <th>Tanggal</th>
-                                    <th>Keterangan</th>
+                                    <th>Kategori</th>
                                     <th>Nominal</th>
                                 </tr>
                             </thead>
@@ -707,8 +707,8 @@ $alertStatus = $_GET['status'] ?? '';
                                                 <?= formatTanggal($tx['tanggal']) ?>
                                             </td>
                                             <td style="max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"
-                                                title="<?= htmlspecialchars($tx['keterangan']) ?>">
-                                                <?= $tx['ikon'] ?>         <?= htmlspecialchars($tx['keterangan']) ?>
+                                                title="<?= htmlspecialchars($tx['nama_kategori']) ?>">
+                                                <?= $tx['ikon'] ?>         <?= htmlspecialchars($tx['nama_kategori']) ?>
                                             </td>
                                             <td>
                                                 <?php if ($tx['jenis'] === 'masuk'): ?>

@@ -13,7 +13,7 @@ $where  = "WHERE t.id_user = :uid";
 $params = [':uid' => $_SESSION['id_user']];
 
 if ($search !== '') {
-    $where .= " AND (t.keterangan LIKE :search OR t.catatan LIKE :search2)";
+    $where .= " AND (c.nama_kategori LIKE :search OR p.nama_produk LIKE :search2)";
     $params[':search'] = "%$search%";
     $params[':search2'] = "%$search%";
 }
@@ -768,7 +768,7 @@ function buildQuery(array $overrides = []): string
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-search"></i></span>
                         <input type="text" class="form-control" name="search" value="<?= htmlspecialchars($search) ?>"
-                            placeholder="Cari keterangan...">
+                            placeholder="Cari kategori atau produk...">
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -853,7 +853,7 @@ function buildQuery(array $overrides = []): string
                         <tr>
                             <th style="width:50px;">#</th>
                             <th>Tanggal</th>
-                            <th>Keterangan</th>
+                            <th>Produk</th>
                             <th>Kategori</th>
                             <th>Jenis</th>
                             <th>Nominal</th>
@@ -880,20 +880,13 @@ function buildQuery(array $overrides = []): string
                                         <span style="font-size:0.75rem;color:#9ca3af;"><?= substr($tx['waktu'], 0, 5) ?></span>
                                     </td>
                                     <td>
-                                        <?= htmlspecialchars($tx['keterangan']) ?>
                                         <?php if (!empty($tx['nama_produk_linked'])): ?>
-                                            <br><span
-                                                style="display:inline-flex;align-items:center;gap:4px;background:#f5f3ff;color:#7c3aed;font-size:0.72rem;font-weight:600;padding:2px 9px;border-radius:20px;margin-top:3px;">
+                                            <span style="display:inline-flex;align-items:center;gap:4px;background:#f5f3ff;color:#7c3aed;font-size:0.72rem;font-weight:600;padding:2px 9px;border-radius:20px;margin-top:3px;">
                                                 <i class="fas fa-box" style="font-size:0.65rem;"></i>
                                                 <?= htmlspecialchars($tx['nama_produk_linked']) ?>
                                             </span>
-                                        <?php endif; ?>
-                                        <?php if ($tx['catatan']): ?>
-                                            <br><span style="font-size:0.75rem;color:#9ca3af;"
-                                                title="<?= htmlspecialchars($tx['catatan']) ?>">
-                                                <i class="fas fa-sticky-note"></i>
-                                                <?= mb_strimwidth(htmlspecialchars($tx['catatan']), 0, 40, '...') ?>
-                                            </span>
+                                        <?php else: ?>
+                                            <span style="color:#9ca3af;font-size:0.8rem;">-</span>
                                         <?php endif; ?>
                                     </td>
                                     <td>
@@ -939,12 +932,13 @@ function buildQuery(array $overrides = []): string
                         <div class="mobile-tx-card">
                             <div class="mobile-tx-top">
                                 <div class="mobile-tx-keterangan">
-                                    <?= htmlspecialchars($tx['keterangan']) ?>
                                     <?php if (!empty($tx['nama_produk_linked'])): ?>
-                                        <br><span style="display:inline-flex;align-items:center;gap:4px;background:#f5f3ff;color:#7c3aed;font-size:0.72rem;font-weight:600;padding:2px 9px;border-radius:20px;margin-top:3px;">
+                                        <span style="display:inline-flex;align-items:center;gap:4px;background:#f5f3ff;color:#7c3aed;font-size:0.72rem;font-weight:600;padding:2px 9px;border-radius:20px;margin-top:3px;">
                                             <i class="fas fa-box" style="font-size:0.65rem;"></i>
                                             <?= htmlspecialchars($tx['nama_produk_linked']) ?>
                                         </span>
+                                    <?php else: ?>
+                                        <span style="color:#9ca3af;font-size:0.8rem;">-</span>
                                     <?php endif; ?>
                                 </div>
                                 <div class="mobile-tx-nominal <?= $tx['jenis'] === 'masuk' ? 'nominal-masuk' : 'nominal-keluar' ?>">
@@ -960,12 +954,7 @@ function buildQuery(array $overrides = []): string
                                     <span class="tx-badge keluar"><i class="fas fa-arrow-up"></i> Keluar</span>
                                 <?php endif; ?>
                             </div>
-                            <?php if ($tx['catatan']): ?>
-                                <div style="font-size:0.75rem;color:#9ca3af;margin-bottom:8px;">
-                                    <i class="fas fa-sticky-note"></i>
-                                    <?= mb_strimwidth(htmlspecialchars($tx['catatan']), 0, 60, '...') ?>
-                                </div>
-                            <?php endif; ?>
+
                             <div class="mobile-tx-actions">
                                 <a href="form_transaksi.php?id=<?= $tx['id_transaksi'] ?>" class="btn-tbl edit">
                                     <i class="fas fa-edit"></i> Edit

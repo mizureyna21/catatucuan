@@ -34,7 +34,7 @@ if (in_array($jenis, ['masuk', 'keluar'])) {
     $params[':jenis'] = $jenis;
 }
 
-$sql = "SELECT t.tanggal, t.waktu, t.keterangan, t.nominal, t.jenis,
+$sql = "SELECT t.tanggal, t.waktu, t.nominal, t.jenis,
                k.nama_kategori, k.ikon,
                p.nama_produk AS nama_produk_linked,
                p.harga_beli  AS produk_harga_beli
@@ -121,7 +121,7 @@ if (empty($transaksiList)) {
         <tr style="background:' . $bgRow . ';">
             <td style="padding:8pt 10pt;border-bottom:1px solid #e5e7eb;text-align:center;color:#9ca3af;font-size:9pt;">' . ($i + 1) . '</td>
             <td style="padding:8pt 10pt;border-bottom:1px solid #e5e7eb;white-space:nowrap;font-size:9pt;">' . fTgl($tx['tanggal']) . '<br><span style="color:#9ca3af;font-size:8pt;">' . substr($tx['waktu'], 0, 5) . '</span></td>
-            <td style="padding:8pt 10pt;border-bottom:1px solid #e5e7eb;font-size:9pt;">' . htmlspecialchars($tx['keterangan']) . $produkBadge . '</td>
+            <td style="padding:8pt 10pt;border-bottom:1px solid #e5e7eb;font-size:9pt;">' . htmlspecialchars($tx['nama_produk_linked'] ?? '-') . '</td>
             <td style="padding:8pt 10pt;border-bottom:1px solid #e5e7eb;font-size:9pt;">' . htmlspecialchars($tx['ikon'] . ' ' . $tx['nama_kategori']) . '</td>
             <td style="padding:8pt 10pt;border-bottom:1px solid #e5e7eb;text-align:center;font-size:9pt;color:' . $nomColor . ';font-weight:bold;">' . $jenisText . '</td>
             <td style="padding:8pt 10pt;border-bottom:1px solid #e5e7eb;text-align:right;font-size:9pt;font-weight:bold;color:' . $nomColor . ';">' . $nomSign . ' ' . fRp($tx['nominal']) . '</td>
@@ -351,7 +351,7 @@ echo '<!DOCTYPE html>
             <tr>
                 <th style="width:4%;text-align:center;">No</th>
                 <th style="width:13%;">Tanggal</th>
-                <th style="width:30%;">Keterangan</th>
+                <th style="width:30%;">Produk</th>
                 <th style="width:18%;">Kategori</th>
                 <th style="width:12%;text-align:center;">Jenis</th>
                 <th style="width:23%;text-align:right;">Nominal</th>

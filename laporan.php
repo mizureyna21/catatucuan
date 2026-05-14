@@ -23,7 +23,7 @@ if (in_array($jenis, ['masuk', 'keluar'])) {
     $params[':jenis'] = $jenis;
 }
 
-$sql = "SELECT t.*, k.nama_kategori, k.ikon, p.harga_beli AS produk_harga_beli FROM tb_transaksi t
+$sql = "SELECT t.*, k.nama_kategori, k.ikon, p.nama_produk, p.harga_beli AS produk_harga_beli FROM tb_transaksi t
         JOIN tb_kategori k ON t.id_kategori = k.id_kategori
         LEFT JOIN tb_produk p ON t.id_produk = p.id_produk
         $where ORDER BY t.tanggal ASC, t.waktu ASC";
@@ -74,14 +74,14 @@ if (isset($_GET['export']) && $_GET['export'] === 'csv') {
     fputcsv($out, ['Total Pengeluaran', $totalKeluar], ';');
     fputcsv($out, ['Saldo Akhir', $saldo], ';');
     fputcsv($out, [], ';');
-    fputcsv($out, ['No', 'Tanggal', 'Waktu', 'Keterangan', 'Kategori', 'Jenis', 'Nominal'], ';');
+    fputcsv($out, ['No', 'Tanggal', 'Waktu', 'Produk', 'Kategori', 'Jenis', 'Nominal'], ';');
 
     foreach ($transaksiList as $i => $tx) {
         fputcsv($out, [
             $i + 1,
             $tx['tanggal'],
             substr($tx['waktu'], 0, 5),
-            $tx['keterangan'],
+            $tx['nama_produk'] ?? '-',
             $tx['ikon'] . ' ' . $tx['nama_kategori'],
             $tx['jenis'] === 'masuk' ? 'Pemasukan' : 'Pengeluaran',
             $tx['nominal'],
@@ -918,7 +918,7 @@ $tahunList = range(date('Y') + 1, max(2024, date('Y') - 4), -1);
                                     <tr>
                                         <th>No</th>
                                         <th>Tanggal</th>
-                                        <th>Keterangan</th>
+                                        <th>Produk</th>
                                         <th>Kategori</th>
                                         <th>Jenis</th>
                                         <th>Nominal</th>
@@ -930,7 +930,7 @@ $tahunList = range(date('Y') + 1, max(2024, date('Y') - 4), -1);
                                             <td style="color:#b0b8c8;font-weight:600;"><?= $i + 1 ?></td>
                                             <td style="font-weight:500;white-space:nowrap;"><?= formatTanggal($tx['tanggal']) ?>
                                             </td>
-                                            <td><?= htmlspecialchars($tx['keterangan']) ?></td>
+                                            <td><?= htmlspecialchars($tx['nama_produk'] ?? '-') ?></td>
                                             <td><span class="kat-badge"><?= $tx['ikon'] ?>
                                                     <?= htmlspecialchars($tx['nama_kategori']) ?></span></td>
                                             <td>
@@ -991,7 +991,7 @@ $tahunList = range(date('Y') + 1, max(2024, date('Y') - 4), -1);
                         <tr>
                             <th>No</th>
                             <th>Tanggal</th>
-                            <th>Keterangan</th>
+                            <th>Produk</th>
                             <th>Kategori</th>
                             <th>Jenis</th>
                             <th>Nominal</th>
@@ -1002,7 +1002,7 @@ $tahunList = range(date('Y') + 1, max(2024, date('Y') - 4), -1);
                             <tr>
                                 <td><?= $i + 1 ?></td>
                                 <td><?= formatTanggal($tx['tanggal']) ?></td>
-                                <td><?= htmlspecialchars($tx['keterangan']) ?></td>
+                                <td><?= htmlspecialchars($tx['nama_produk'] ?? '-') ?></td>
                                 <td><?= htmlspecialchars($tx['nama_kategori']) ?></td>
                                 <td><?= $tx['jenis'] === 'masuk' ? 'Pemasukan' : 'Pengeluaran' ?></td>
                                 <td class="<?= $tx['jenis'] === 'masuk' ? 'masuk-text' : 'keluar-text' ?>">
