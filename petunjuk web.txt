@@ -1,0 +1,33 @@
+# CatatCuan - Aplikasi Pencatatan Keuangan
+
+Selamat datang di proyek **CatatCuan**. Aplikasi ini dirancang untuk membantu pengguna dalam mencatat, melacak, dan mengelola keuangan (pemasukan dan pengeluaran) secara digital. Proyek ini dibuat untuk memenuhi tugas praktikum pemrograman web.
+
+## 🔑 Informasi Akun Akses (Login)
+
+Untuk keperluan pengujian, demonstrasi, atau pemeriksaan oleh Dosen, silakan gunakan kredensial berikut untuk masuk ke dalam sistem:
+
+* **Email:** `kopijaya@gmail.com`
+* **Password:** `000000`
+
+## 🚀 Cara Menjalankan Proyek
+
+Berikut adalah langkah-langkah standar untuk menjalankan aplikasi ini di lingkungan lokal (*local development*):
+
+1.  **Persiapan Folder:**
+    * Pastikan file proyek sudah berada di dalam direktori server lokal (misalnya folder `htdocs` jika menggunakan XAMPP, atau direktori server web Anda).
+2.  **Konfigurasi Database:**
+    * Buat database baru melalui phpMyAdmin dengan nama `catatcuan` (atau sesuaikan dengan file konfigurasi database Anda).
+    * Impor file `.sql` yang tersedia ke dalam database tersebut.
+3.  **Akses Aplikasi:**
+    * Buka browser pilihan Anda (Chrome, Firefox, Edge, dll).
+    * Masukkan URL aplikasi, contoh: `http://localhost/catatcuan`
+    * Gunakan email dan password di atas pada halaman Login untuk masuk ke dalam sistem.
+
+## ✨ Fitur Utama
+* **Autentikasi Keamanan:** Sistem Login dan Logout untuk menjaga data pengguna.
+* **Pencatatan Transaksi:** Input data pemasukan dan pengeluaran secara terstruktur.
+* **Dashboard Keuangan:** Menampilkan ringkasan saldo, total pemasukan, dan total pengeluaran.
+* **Riwayat Transaksi:** Mengelola dan melihat kembali data cuan yang telah dicatat.
+
+---
+*Catatan: Mohon untuk tidak mengubah informasi email dan password di atas selama proses penilaian agar dosen atau pemeriksa dapat mengakses sistem dengan lancar.*
